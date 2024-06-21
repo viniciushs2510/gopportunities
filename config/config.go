@@ -6,14 +6,25 @@ import (
 
 var (
 	db     *gorm.DB
-	looger *Logger
+	logger *Logger
 )
 
 func Init() error {
+	var err error
+
+	db, err = InitializeSQLite()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func GetLogger(p string) *Logger {
-	looger = NewLogger(p)
-	return looger
+	logger = NewLogger(p)
+	return logger
+}
+
+func GetDB() *gorm.DB {
+	return db
 }
